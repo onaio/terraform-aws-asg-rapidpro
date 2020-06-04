@@ -82,6 +82,7 @@ module "rapidpro" {
   asg_https_cidr_blocks      = var.asg_https_cidr_blocks
   target_group_port          = var.target_group_port
   target_group_protocol      = var.target_group_protocol
+  alb_logs_user_identifiers  = var.alb_logs_user_identifiers
 }
 
 module "rapidpro-blue" {
