@@ -265,7 +265,7 @@ variable "compute_region" {
 variable "ec2_instance_role" {
   type        = string
   description = "The name of the IAM role to attach to the EC2 instances."
-  default     = "EC2UpdateInstanceTags"
+  default     = "ec2-instances"
 }
 
 variable "target_group_port" {
