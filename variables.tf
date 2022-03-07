@@ -111,15 +111,15 @@ variable "create_certificate" {
   description = "Whether to create an AWS managed TLS certificate for the load balancer. '0' is not, '1' is yes."
 }
 
-variable "route53_zone_name" {
-  type        = string
+variable "route53_zone_names" {
+  type        = map(any)
   default     = ""
   description = "The Route 53 DNS zone to create the domain names to associate with the load balancer."
 }
 
-variable "service_domain" {
-  type        = string
-  description = "The main domain name to associate with the load balancer."
+variable "service_domains" {
+  type        = list(string)
+  description = "The main domain names to associate with the load balancer."
 }
 
 variable "iam_server_ssl_cert" {

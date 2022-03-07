@@ -57,8 +57,8 @@ module "rapidpro" {
   end_date                   = var.end_date
   alb_bucket_name            = var.alb_bucket_name
   alb_ssl_policy             = var.alb_ssl_policy
-  route53_zone_name          = var.route53_zone_name
-  service_domain             = var.service_domain
+  route53_zone_names          = var.route53_zone_names
+  service_domains             = var.service_domains
   iam_server_ssl_cert        = var.iam_server_ssl_cert
   acm_certificate_domain     = var.acm_certificate_domain
   cnames                     = var.cnames
