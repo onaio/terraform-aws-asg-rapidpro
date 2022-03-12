@@ -113,7 +113,7 @@ variable "create_certificate" {
 
 variable "route53_zone_names" {
   type        = map(any)
-  default     = ""
+  default     = {}
   description = "The Route 53 DNS zone to create the domain names to associate with the load balancer."
 }
 
