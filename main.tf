@@ -2,8 +2,11 @@ data "aws_vpc" "rapidpro-vpc" {
   id = var.vpc_id
 }
 
-data "aws_subnet_ids" "rapidpro" {
-  vpc_id = data.aws_vpc.rapidpro-vpc.id
+data "aws_subnets" "rapidpro" {
+  filter {
+    name = "vpc-id"
+    values = [data.aws_vpc.rapidpro-vpc.id]
+  }
 }
 
 data "template_file" "init-blue" {
@@ -65,7 +68,7 @@ module "rapidpro" {
   data_bucket_name           = var.data_bucket_name
   iam_s3_user                = var.iam_s3_user
   vpc_id                     = data.aws_vpc.rapidpro-vpc.id
-  subnet_ids                 = length(var.alb_subnet_ids) > 0 ? var.alb_subnet_ids : data.aws_subnet_ids.rapidpro.ids
+  subnet_ids                 = length(var.alb_subnet_ids) > 0 ? var.alb_subnet_ids : data.aws_subnets.rapidpro.ids
   data_bucket_region         = var.data_bucket_region
   create_certificate         = var.create_certificate
   health_check_path          = var.health_check_path
@@ -105,7 +108,7 @@ module "rapidpro-blue" {
   cloudwatch_alarm_actions = var.cloudwatch_alarm_actions
   target_group_arns        = module.rapidpro.target_group_arns
   security_groups          = module.rapidpro.security_groups
-  subnet_ids               = length(var.hosts_subnet_ids) > 0 ? var.hosts_subnet_ids : data.aws_subnet_ids.rapidpro.ids
+  subnet_ids               = length(var.hosts_subnet_ids) > 0 ? var.hosts_subnet_ids : data.aws_subnets.rapidpro.ids
   user_data                = data.template_cloudinit_config.blue.rendered
   ec2_instance_role        = var.ec2_instance_role
 }
@@ -130,7 +133,7 @@ module "rapidpro-green" {
   cloudwatch_alarm_actions = var.cloudwatch_alarm_actions
   target_group_arns        = module.rapidpro.target_group_arns
   security_groups          = module.rapidpro.security_groups
-  subnet_ids               = length(var.hosts_subnet_ids) > 0 ? var.hosts_subnet_ids : data.aws_subnet_ids.rapidpro.ids
+  subnet_ids               = length(var.hosts_subnet_ids) > 0 ? var.hosts_subnet_ids : data.aws_subnets.rapidpro.ids
   user_data                = data.template_cloudinit_config.green.rendered
   ec2_instance_role        = var.ec2_instance_role
 }
