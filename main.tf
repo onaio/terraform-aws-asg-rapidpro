@@ -4,7 +4,7 @@ data "aws_vpc" "rapidpro-vpc" {
 
 data "aws_subnets" "rapidpro" {
   filter {
-    name = "vpc-id"
+    name   = "vpc-id"
     values = [data.aws_vpc.rapidpro-vpc.id]
   }
 }
@@ -60,8 +60,8 @@ module "rapidpro" {
   end_date                   = var.end_date
   alb_bucket_name            = var.alb_bucket_name
   alb_ssl_policy             = var.alb_ssl_policy
-  route53_zone_names          = var.route53_zone_names
-  service_domains             = var.service_domains
+  route53_zone_names         = var.route53_zone_names
+  service_domains            = var.service_domains
   iam_server_ssl_cert        = var.iam_server_ssl_cert
   acm_certificate_domain     = var.acm_certificate_domain
   cnames                     = var.cnames
